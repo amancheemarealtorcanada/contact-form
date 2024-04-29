@@ -158,7 +158,7 @@ const App = () => {
                         <p>
                         AMANDEEP KAUR
                         </p>
-                        <p className="ml-4">
+                        <p>
                         <b>BROKER</b>
                         </p>
                       </div>
