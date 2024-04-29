@@ -9,7 +9,7 @@ const App = () => {
     email: "",
     message: "",
     subject: "",
-    socialMedia: "",
+    
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +23,7 @@ const App = () => {
     // Prepare email message
     const emailData = {
       subject: formData.subject,
-      text: `Name: ${formData.name}\nEmail: ${formData.email}\nSocial Media Link: ${formData.socialMedia}\nMessage: ${formData.message}`,
+      text: `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`,
     };
 
     try {
@@ -40,7 +40,7 @@ const App = () => {
         email: "",
         message: "",
         subject: "",
-        socialMedia: "",
+      
       });
       alert("Message sent successfully!");
     } catch (error) {
@@ -100,19 +100,7 @@ const App = () => {
                             />
                           </div>
                         </div>
-                        <div className="col-md-12">
-                          <div className="form-group">
-                            <input
-                              type="url"
-                              className="form-control"
-                              name="socialMedia"
-                              placeholder="Social Media Link (http://xyz.com/)"
-                              onChange={handleChange}
-                              value={formData.socialMedia}
-                              required
-                            />
-                          </div>
-                        </div>
+                       
                         <div className="col-md-12">
                           <div className="form-group">
                             <input
@@ -168,8 +156,21 @@ const App = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Address:</span> 198 West 21th Street, Suite 721
-                          New York NY 10016
+                        AMANDEEP KAUR
+                        </p>
+                        <p className="ml-4">
+                        <b>BROKER</b>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="dbox w-100 d-flex align-items-start">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-map-marker"></span>
+                      </div>
+                      <div className="text pl-3">
+                        <p>
+                          <span>Address:</span> 1550 Enterprise Rd #305,
+Mississauga, ON L4W 4P4
                         </p>
                       </div>
                     </div>
@@ -179,8 +180,12 @@ const App = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Phone:</span>{" "}
-                          <a href="tel://1234567920">+ 1235 2355 98</a>
+                          <span>Mobile:</span>{" "}
+                          <a href="tel://+1437.779.9980">+ 1437.779.9980</a>
+                        </p>
+                        <p>
+                          <span>Mississauga Office:</span>{" "}
+                          <a href="tel://+1905-459-7900">+1 905-459-7900</a>
                         </p>
                       </div>
                     </div>
@@ -197,16 +202,16 @@ const App = () => {
                         </p>
                       </div>
                     </div>
-                    {/* <div className="dbox w-100 d-flex align-items-center">
+                    <div className="dbox w-100 d-flex align-items-center">
                       <div className="icon d-flex align-items-center justify-content-center">
                         <span className="fa fa-globe"></span>
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Website</span> <a href="#">yoursite.com</a>
+                          <span>Website: </span> <a target="_blank" href="http://www.savemax.com">savemax.com</a>
                         </p>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
