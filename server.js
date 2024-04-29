@@ -3,7 +3,7 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 
 const app = express();
 const port = 5004; // Or any other port you prefer
@@ -28,7 +28,7 @@ app.post("/send-email", (req, res) => {
   // Email options
   const mailOptions = {
     from: "amancheema.realtorcanada@gmail.com",
-    to: "manpreetsran3600@gmail.com",
+    to: "cheemaaman1992@gmail.com",
     subject,
     text,
   };

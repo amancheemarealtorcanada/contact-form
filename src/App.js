@@ -9,10 +9,12 @@ const App = () => {
     email: "",
     message: "",
     subject: "",
+    socialMedia: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((pre) => ({ ...pre, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
@@ -21,51 +23,60 @@ const App = () => {
     // Prepare email message
     const emailData = {
       subject: formData.subject,
-      text: `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`,
+      text: `Name: ${formData.name}\nEmail: ${formData.email}\nSocial Media Link: ${formData.socialMedia}\nMessage: ${formData.message}`,
     };
 
     try {
+      setLoading(true);
       // Send email
-      await axios.post("http://localhost:5004/send-email", emailData);
-      alert("Message sent successfully!");
+      await axios.post(
+        "https://contact-form-tr42.onrender.com/send-email",
+        emailData
+      );
+      setLoading(false);
+
       setFormData({
         name: "",
         email: "",
         message: "",
-        subject:""
+        subject: "",
+        socialMedia: "",
       });
+      alert("Message sent successfully!");
     } catch (error) {
+      setLoading(false);
+
       console.error("Error sending message:", error);
       alert("An error occurred. Please try again later.");
     }
   };
 
   return (
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6 text-center mb-5">
-            {/* <h2 class="heading-section">Contact Us</h2> */}
+    <section className="ftco-section">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6 text-center mb-5">
+            {/* <h2 className="heading-section">Contact Us</h2> */}
           </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-12">
-            <div class="wrapper">
-              <div class="row no-gutters">
-                <div class="col-md-7 d-flex align-items-stretch">
-                  <div class="contact-wrap w-100 p-md-5 p-4">
-                    <h3 class="mb-4">Get in touch</h3>
-                    <div id="form-message-warning" class="mb-4"></div>
-                    <div id="form-message-success" class="mb-4">
+        <div className="row justify-content-center">
+          <div className="col-lg-10 col-md-12">
+            <div className="wrapper">
+              <div className="row no-gutters">
+                <div className="col-md-7 d-flex align-items-stretch">
+                  <div className="contact-wrap w-100 p-md-5 p-4">
+                    <h3 className="mb-4">Get in touch</h3>
+                    <div id="form-message-warning" className="mb-4"></div>
+                    <div id="form-message-success" className="mb-4">
                       Your message was sent, thank you!
                     </div>
                     <form name="contactForm" onSubmit={handleSubmit}>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
+                      <div className="row">
+                        <div className="col-md-6">
+                          <div className="form-group">
                             <input
                               type="text"
-                              class="form-control"
+                              className="form-control"
                               name="name"
                               id="name"
                               placeholder="Name"
@@ -75,11 +86,11 @@ const App = () => {
                             />
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
+                        <div className="col-md-6">
+                          <div className="form-group">
                             <input
                               type="email"
-                              class="form-control"
+                              className="form-control"
                               name="email"
                               id="email"
                               placeholder="Email"
@@ -89,11 +100,24 @@ const App = () => {
                             />
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <div class="form-group">
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <input
+                              type="url"
+                              className="form-control"
+                              name="socialMedia"
+                              placeholder="Social Media Link (http://xyz.com/)"
+                              onChange={handleChange}
+                              value={formData.socialMedia}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <div className="form-group">
                             <input
                               type="text"
-                              class="form-control"
+                              className="form-control"
                               name="subject"
                               id="subject"
                               placeholder="Subject"
@@ -103,11 +127,11 @@ const App = () => {
                             />
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <div class="form-group">
+                        <div className="col-md-12">
+                          <div className="form-group">
                             <textarea
                               name="message"
-                              class="form-control"
+                              className="form-control"
                               id="message"
                               cols="30"
                               rows="7"
@@ -118,68 +142,71 @@ const App = () => {
                             ></textarea>
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <div class="form-group">
+                        <div className="col-md-12">
+                          <div className="form-group">
                             <input
                               type="submit"
-                              value="Send Message"
-                              class="btn btn-primary"
+                              disabled={loading}
+                              value={
+                                loading ? "Please Wait..." : "Send Message"
+                              }
+                              className="btn btn-primary"
                             />
-                            <div class="submitting"></div>
+                            <div className="submitting"></div>
                           </div>
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
-                <div class="col-md-5 d-flex align-items-stretch">
-                  <div class="info-wrap bg-primary w-100 p-lg-5 p-4">
-                    <h3 class="mb-4 mt-md-4">Contact us</h3>
-                    <div class="dbox w-100 d-flex align-items-start">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-map-marker"></span>
+                <div className="col-md-5 d-flex align-items-stretch">
+                  <div className="info-wrap bg-primary w-100 p-lg-5 p-4">
+                    <h3 className="mb-4 mt-md-4">Contact us</h3>
+                    <div className="dbox w-100 d-flex align-items-start">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-map-marker"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Address:</span> 198 West 21th Street, Suite 721
                           New York NY 10016
                         </p>
                       </div>
                     </div>
-                    <div class="dbox w-100 d-flex align-items-center">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-phone"></span>
+                    <div className="dbox w-100 d-flex align-items-center">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-phone"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Phone:</span>{" "}
                           <a href="tel://1234567920">+ 1235 2355 98</a>
                         </p>
                       </div>
                     </div>
-                    <div class="dbox w-100 d-flex align-items-center">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-paper-plane"></span>
+                    <div className="dbox w-100 d-flex align-items-center">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-paper-plane"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Email:</span>{" "}
-                          <a href="mailto:info@yoursite.com">
-                            info@yoursite.com
+                          <a href="mailto:cheemaaman1992@gmail.com">
+                            cheemaaman1992@gmail.com
                           </a>
                         </p>
                       </div>
                     </div>
-                    <div class="dbox w-100 d-flex align-items-center">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-globe"></span>
+                    {/* <div className="dbox w-100 d-flex align-items-center">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-globe"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Website</span> <a href="#">yoursite.com</a>
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
